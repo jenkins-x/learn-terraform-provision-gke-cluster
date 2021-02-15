@@ -39,7 +39,8 @@ resource "google_container_node_pool" "primary_nodes" {
     }
 
     # preemptible  = true
-    machine_type = "n1-standard-1"
+    machine_type = var.node_machine_type
+
     tags = [
       "gke-node",
       var.cluster_name]

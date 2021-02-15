@@ -11,6 +11,12 @@ variable "region" {
   description = "region"
 }
 
+variable "node_machine_type" {
+  description = "Node type for the Kubernetes cluster"
+  type        = string
+  default     = "n1-standard-2"
+}
+
 variable "gke_username" {
   default = ""
   description = "gke username"

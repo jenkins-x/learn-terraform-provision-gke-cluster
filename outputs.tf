@@ -17,3 +17,8 @@ output "kubernetes_cluster_host" {
   value       = google_container_cluster.primary.endpoint
   description = "GKE Cluster Host"
 }
+
+output "connect" {
+  description = "The cluster connection string to use once Terraform apply finishes"
+  value       = "gcloud container clusters get-credentials ${var.cluster_name} --zone ${var.region} --project ${var.project_id}"
+}

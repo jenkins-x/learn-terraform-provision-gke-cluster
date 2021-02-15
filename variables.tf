@@ -7,6 +7,7 @@ variable "cluster_name" {
 }
 
 variable "region" {
+  default = "us-central1-a"
   description = "region"
 }
 

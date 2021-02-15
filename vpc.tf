@@ -2,6 +2,10 @@ variable "project_id" {
   description = "project id"
 }
 
+variable "cluster_name" {
+  description = "cluster name"
+}
+
 variable "region" {
   description = "region"
 }

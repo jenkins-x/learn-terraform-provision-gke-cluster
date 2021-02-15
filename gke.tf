@@ -1,27 +1,13 @@
-variable "gke_username" {
-  default     = ""
-  description = "gke username"
-}
-
-variable "gke_password" {
-  default     = ""
-  description = "gke password"
-}
-
-variable "gke_num_nodes" {
-  default     = 3
-  description = "number of gke nodes"
-}
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
-  name     = "${var.cluster_name}"
+  name = var.cluster_name
   location = var.region
 
   remove_default_node_pool = true
-  initial_node_count       = 1
+  initial_node_count = 1
 
-  network    = google_compute_network.vpc.name
+  network = google_compute_network.vpc.name
   subnetwork = google_compute_subnetwork.subnet.name
 
   master_auth {
@@ -36,9 +22,9 @@ resource "google_container_cluster" "primary" {
 
 # Separately Managed Node Pool
 resource "google_container_node_pool" "primary_nodes" {
-  name       = "${google_container_cluster.primary.name}-node-pool"
-  location   = var.region
-  cluster    = google_container_cluster.primary.name
+  name = "${google_container_cluster.primary.name}-node-pool"
+  location = var.region
+  cluster = google_container_cluster.primary.name
   node_count = var.gke_num_nodes
 
   node_config {
@@ -53,7 +39,9 @@ resource "google_container_node_pool" "primary_nodes" {
 
     # preemptible  = true
     machine_type = "n1-standard-1"
-    tags         = ["gke-node", "${var.cluster_name}"]
+    tags = [
+      "gke-node",
+      var.cluster_name]
     metadata = {
       disable-legacy-endpoints = "true"
     }

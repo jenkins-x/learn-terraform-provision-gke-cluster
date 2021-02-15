@@ -1,3 +1,7 @@
+provider "google" {
+  project = var.project_id
+  region = var.region
+}
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
